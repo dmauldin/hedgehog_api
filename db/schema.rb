@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_19_225240) do
+ActiveRecord::Schema.define(version: 2020_09_15_235112) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -42,6 +42,12 @@ ActiveRecord::Schema.define(version: 2020_08_19_225240) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "ticket_types", force: :cascade do |t|
+    t.string "label"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tickets", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -52,11 +58,13 @@ ActiveRecord::Schema.define(version: 2020_08_19_225240) do
     t.integer "assignee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "ticket_type_id", null: false
     t.index ["assignee_id"], name: "index_tickets_on_assignee_id"
     t.index ["priority_id"], name: "index_tickets_on_priority_id"
     t.index ["project_id"], name: "index_tickets_on_project_id"
     t.index ["status_id"], name: "index_tickets_on_status_id"
     t.index ["submitter_id"], name: "index_tickets_on_submitter_id"
+    t.index ["ticket_type_id"], name: "index_tickets_on_ticket_type_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -72,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_08_19_225240) do
   add_foreign_key "tickets", "priorities"
   add_foreign_key "tickets", "projects"
   add_foreign_key "tickets", "statuses"
+  add_foreign_key "tickets", "ticket_types"
   add_foreign_key "tickets", "users", column: "assignee_id"
   add_foreign_key "tickets", "users", column: "submitter_id"
 end

@@ -1,0 +1,41 @@
+project hedgehog
+
+views:
+projects
+project details
+bugs
+bug details
+
+admin views:
+users
+
+future views:
+customization
+dashboard
+agile boards
+knowledge base
+reporting
+time management
+integrations
+
+models:
+issue
+    belongs to
+        project
+        assignee
+        submitter
+        priority
+        state
+        issue type
+    has many
+        tags
+        watchers
+    due date
+    reported date
+    title
+    description (should repro steps be included in the description? what about when changing from bug to story, should repro steps be kept?)
+
+API endpoints:
+/tickets
+/tickets/:id
+/projects/:id/tickets
